@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/image_equipment"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:background="@color/xgym_light_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/ic_equipment_black_24dp" />
+
+    <TextView
+        android:id="@+id/text_equipment_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/xgym_on_surface"
+        app:layout_constraintEnd_toStartOf="@+id/text_usage_count"
+        app:layout_constraintStart_toEndOf="@+id/image_equipment"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Bench Press" />
+
+    <TextView
+        android:id="@+id/text_max_weight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/xgym_dark_gray"
+        app:layout_constraintEnd_toStartOf="@+id/text_usage_count"
+        app:layout_constraintStart_toEndOf="@+id/image_equipment"
+        app:layout_constraintTop_toBottomOf="@+id/text_equipment_name"
+        tools:text="Max: 85kg" />
+
+    <TextView
+        android:id="@+id/text_usage_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/xgym_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="15x" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

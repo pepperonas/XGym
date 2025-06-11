@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_equipment">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="io.celox.xgym.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_equipment"
+        android:name="io.celox.xgym.ui.equipment.EquipmentFragment"
+        android:label="@string/title_equipment"
+        tools:layout="@layout/fragment_equipment" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="io.celox.xgym.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_workouts"
+        android:name="io.celox.xgym.ui.workouts.WorkoutsFragment"
+        android:label="@string/title_workouts"
+        tools:layout="@layout/fragment_workouts" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="io.celox.xgym.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_statistics"
+        android:name="io.celox.xgym.ui.statistics.StatisticsFragment"
+        android:label="@string/title_statistics"
+        tools:layout="@layout/fragment_statistics" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="io.celox.xgym.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -32,10 +32,20 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            val outputImpl = output as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            val fileName = outputImpl.outputFileName
+            if (fileName.contains("app-")) {
+                outputImpl.outputFileName = fileName.replace("app-", "XGym-")
+            }
+            true
+        }
+    }
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -43,6 +53,21 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    
+    // Room database
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    
+    // Image loading
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
+    
+    // JSON parsing
+    implementation(libs.gson)
+    
+    // Charts
+    implementation(libs.mpandroidchart)
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

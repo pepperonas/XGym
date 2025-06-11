@@ -7,4 +7,23 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- XGym Theme Colors -->
+    <color name="xgym_primary">#32AE6C</color>
+    <color name="xgym_primary_variant">#2E9B60</color>
+    <color name="xgym_secondary">#4CAF50</color>
+    <color name="xgym_secondary_variant">#45A049</color>
+    <color name="xgym_background">#F5F5F5</color>
+    <color name="xgym_surface">#FFFFFF</color>
+    <color name="xgym_error">#F44336</color>
+    <color name="xgym_on_primary">#FFFFFF</color>
+    <color name="xgym_on_secondary">#FFFFFF</color>
+    <color name="xgym_on_background">#212121</color>
+    <color name="xgym_on_surface">#212121</color>
+    <color name="xgym_on_error">#FFFFFF</color>
+    
+    <!-- Additional colors -->
+    <color name="xgym_accent">#FF5722</color>
+    <color name="xgym_light_gray">#E0E0E0</color>
+    <color name="xgym_dark_gray">#757575</color>
 </resources>
