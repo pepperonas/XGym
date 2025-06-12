@@ -48,9 +48,7 @@ public class EquipmentFragment extends Fragment {
 
     private void setupFab() {
         binding.fabAddEquipment.setOnClickListener(v -> {
-            // TODO: Navigate to add equipment screen
-            // For now, add a sample equipment
-            equipmentViewModel.addSampleEquipment();
+            showEditEquipmentDialog(null);
         });
     }
 
@@ -90,10 +88,17 @@ public class EquipmentFragment extends Fragment {
     }
 
     private void showEditEquipmentDialog(io.celox.xgym.data.entity.Equipment equipment) {
-        EquipmentEditDialog dialog = EquipmentEditDialog.newInstance(equipment);
-        dialog.setOnEquipmentSavedListener(updatedEquipment -> {
-            equipmentViewModel.updateEquipment(updatedEquipment);
-            Toast.makeText(getContext(), "Equipment updated", Toast.LENGTH_SHORT).show();
+        EquipmentEditTabsDialog dialog = EquipmentEditTabsDialog.newInstance(equipment);
+        dialog.setOnEquipmentSavedListener(savedEquipment -> {
+            if (equipment == null) {
+                // Adding new equipment
+                equipmentViewModel.insert(savedEquipment);
+                Toast.makeText(getContext(), "Equipment added", Toast.LENGTH_SHORT).show();
+            } else {
+                // Updating existing equipment
+                equipmentViewModel.updateEquipment(savedEquipment);
+                Toast.makeText(getContext(), "Equipment updated", Toast.LENGTH_SHORT).show();
+            }
         });
         dialog.show(getParentFragmentManager(), "edit_equipment");
     }
