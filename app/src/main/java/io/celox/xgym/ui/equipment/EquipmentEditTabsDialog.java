@@ -48,7 +48,7 @@ public class EquipmentEditTabsDialog extends DialogFragment {
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
         
-        adapter = new EquipmentTabsAdapter(requireActivity(), equipment);
+        adapter = new EquipmentTabsAdapter(this, equipment);
         viewPager.setAdapter(adapter);
         
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
@@ -61,6 +61,13 @@ public class EquipmentEditTabsDialog extends DialogFragment {
                     break;
             }
         }).attach();
+        
+        // Set initial tab based on equipment category
+        if (equipment != null && "kraftsport".equals(equipment.getCategory())) {
+            viewPager.setCurrentItem(1, false);
+        } else {
+            viewPager.setCurrentItem(0, false);
+        }
 
         return new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(equipment == null ? "Neues Gerät" : "Gerät bearbeiten")
@@ -73,28 +80,45 @@ public class EquipmentEditTabsDialog extends DialogFragment {
     private void saveEquipment() {
         int currentTab = viewPager.getCurrentItem();
         
-        if (equipment == null) {
+        boolean isNewEquipment = (equipment == null);
+        if (isNewEquipment) {
             equipment = new Equipment("", "", 0, 100);
         }
         
-        if (currentTab == 0) {
-            // Ausdauer tab
-            AusdauerEquipmentFragment fragment = (AusdauerEquipmentFragment) 
-                getChildFragmentManager().findFragmentByTag("f" + currentTab);
-            if (fragment != null) {
-                equipment.setName(fragment.getEquipmentName());
-                equipment.setType(fragment.getEquipmentType());
-                equipment.setCategory("ausdauer");
-            }
-        } else {
-            // Kraftsport tab
-            KraftsportEquipmentFragment fragment = (KraftsportEquipmentFragment) 
-                getChildFragmentManager().findFragmentByTag("f" + currentTab);
-            if (fragment != null) {
-                equipment.setName(fragment.getEquipmentName());
-                equipment.setType(fragment.getEquipmentType());
-                equipment.setCategory("kraftsport");
-                equipment.setCurrentWeight(fragment.getWeight());
+        String name = "";
+        String type = "";
+        double weight = 0.0;
+        
+        // Always try to get data from both fragments, but prioritize the current tab
+        AusdauerEquipmentFragment ausdauerFragment = adapter.getAusdauerFragment();
+        KraftsportEquipmentFragment kraftsportFragment = adapter.getKraftsportFragment();
+        
+        if (currentTab == 0 && ausdauerFragment != null) {
+            // Ausdauer tab is active
+            name = ausdauerFragment.getEquipmentName();
+            type = ausdauerFragment.getEquipmentType();
+            equipment.setName(name);
+            equipment.setType(type);
+            equipment.setCategory("ausdauer");
+            equipment.setCurrentWeight(0.0); // Reset weight for cardio
+        } else if (currentTab == 1 && kraftsportFragment != null) {
+            // Kraftsport tab is active
+            name = kraftsportFragment.getEquipmentName();
+            type = kraftsportFragment.getEquipmentType();
+            weight = kraftsportFragment.getWeight();
+            equipment.setName(name);
+            equipment.setType(type);
+            equipment.setCategory("kraftsport");
+            equipment.setCurrentWeight(weight);
+        }
+        
+        // Validate that we have required data
+        if (name.trim().isEmpty()) {
+            // Use equipment type as fallback name
+            if (!type.trim().isEmpty()) {
+                equipment.setName(type);
+            } else {
+                equipment.setName("Neues Gerät");
             }
         }
         

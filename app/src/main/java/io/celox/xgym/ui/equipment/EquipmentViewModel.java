@@ -46,13 +46,22 @@ public class EquipmentViewModel extends AndroidViewModel {
     }
 
     public void addSampleEquipment() {
-        // Add some sample equipment for testing
-        Equipment benchPress = new Equipment("Bench Press", "", 20.0, 100.0);
-        Equipment squat = new Equipment("Squat Rack", "", 40.0, 200.0);
-        Equipment dumbbells = new Equipment("Dumbbells", "", 5.0, 50.0);
+        // Add some sample equipment for testing with type and category
+        Equipment laufband = new Equipment("Laufband", "", 0.0, 0.0);
+        laufband.setType("Laufband");
+        laufband.setCategory("ausdauer");
         
-        insert(benchPress);
-        insert(squat);
-        insert(dumbbells);
+        Equipment beinpresse = new Equipment("Beinpresse", "", 50.0, 300.0);
+        beinpresse.setType("Beinpresse");
+        beinpresse.setCategory("kraftsport");
+        beinpresse.setCurrentWeight(120.0);
+        
+        Equipment crosstrainer = new Equipment("Crosstrainer", "", 0.0, 0.0);
+        crosstrainer.setType("Crosstrainer");
+        crosstrainer.setCategory("ausdauer");
+        
+        insert(laufband);
+        insert(beinpresse);
+        insert(crosstrainer);
     }
 }

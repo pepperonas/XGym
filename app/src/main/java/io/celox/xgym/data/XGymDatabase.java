@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 @Database(
     entities = {Equipment.class, WorkoutSession.class, Exercise.class, Achievement.class},
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 public abstract class XGymDatabase extends RoomDatabase {
@@ -29,12 +29,23 @@ public abstract class XGymDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // Add new columns to equipment table (nullable to match entity definition)
+            database.execSQL("ALTER TABLE equipment ADD COLUMN type TEXT");
+            database.execSQL("ALTER TABLE equipment ADD COLUMN category TEXT");
+            database.execSQL("ALTER TABLE equipment ADD COLUMN currentWeight REAL NOT NULL DEFAULT 0.0");
+        }
+    };
+    
     public static XGymDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (XGymDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             XGymDatabase.class, "xgym_database")
+                            .addMigrations(MIGRATION_1_2)
                             .addCallback(roomDatabaseCallback)
                             .build();
                 }

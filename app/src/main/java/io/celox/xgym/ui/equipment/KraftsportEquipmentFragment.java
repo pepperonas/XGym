@@ -60,7 +60,11 @@ public class KraftsportEquipmentFragment extends Fragment {
         
         if (equipment != null) {
             editEquipmentName.setText(equipment.getName());
-            dropdownEquipmentType.setText(equipment.getType(), false);
+            // Only set type if it's a Kraftsport equipment or empty
+            if (equipment.getType() != null && 
+                ("kraftsport".equals(equipment.getCategory()) || equipment.getCategory() == null)) {
+                dropdownEquipmentType.setText(equipment.getType(), false);
+            }
             if (equipment.getCurrentWeight() > 0) {
                 editWeight.setText(String.valueOf(equipment.getCurrentWeight()));
             }

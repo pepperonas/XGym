@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="Gerätetyp"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
         <AutoCompleteTextView
             android:id="@+id/dropdown_equipment_type"

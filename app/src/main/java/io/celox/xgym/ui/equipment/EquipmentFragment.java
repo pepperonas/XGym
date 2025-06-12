@@ -50,6 +50,13 @@ public class EquipmentFragment extends Fragment {
         binding.fabAddEquipment.setOnClickListener(v -> {
             showEditEquipmentDialog(null);
         });
+        
+        // Long press to add sample equipment for testing
+        binding.fabAddEquipment.setOnLongClickListener(v -> {
+            equipmentViewModel.addSampleEquipment();
+            Toast.makeText(getContext(), "Sample equipment added", Toast.LENGTH_SHORT).show();
+            return true;
+        });
     }
 
     private void observeEquipment() {

@@ -49,7 +49,11 @@ public class AusdauerEquipmentFragment extends Fragment {
         
         if (equipment != null) {
             editEquipmentName.setText(equipment.getName());
-            dropdownEquipmentType.setText(equipment.getType(), false);
+            // Only set type if it's an Ausdauer equipment or empty
+            if (equipment.getType() != null && 
+                ("ausdauer".equals(equipment.getCategory()) || equipment.getCategory() == null)) {
+                dropdownEquipmentType.setText(equipment.getType(), false);
+            }
         }
         
         return view;

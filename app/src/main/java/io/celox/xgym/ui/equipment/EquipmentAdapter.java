@@ -16,12 +16,43 @@ import io.celox.xgym.data.entity.Equipment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class EquipmentAdapter extends ListAdapter<Equipment, EquipmentAdapter.EquipmentViewHolder> {
 
     private OnEquipmentClickListener onEquipmentClickListener;
     private OnEquipmentMoreClickListener onEquipmentMoreClickListener;
+    
+    // Mapping from equipment type to icon resource
+    private static final Map<String, Integer> EQUIPMENT_ICONS = new HashMap<>();
+    static {
+        // Ausdauer Equipment
+        EQUIPMENT_ICONS.put("Laufband", R.drawable.ic_laufband);
+        EQUIPMENT_ICONS.put("Crosstrainer", R.drawable.ic_crosstrainer);
+        EQUIPMENT_ICONS.put("Ergometer", R.drawable.ic_ergometer);
+        EQUIPMENT_ICONS.put("Rudergerät", R.drawable.ic_ergometer); // Use ergometer as placeholder
+        EQUIPMENT_ICONS.put("Stepper", R.drawable.ic_stepper);
+        EQUIPMENT_ICONS.put("Spinning Bike", R.drawable.ic_ergometer); // Use ergometer as placeholder
+        
+        // Kraftsport Equipment
+        EQUIPMENT_ICONS.put("Beinpresse", R.drawable.ic_beinpresse);
+        EQUIPMENT_ICONS.put("Latzug", R.drawable.ic_latzug);
+        EQUIPMENT_ICONS.put("Bankdrücken", R.drawable.ic_hantelbank);
+        EQUIPMENT_ICONS.put("Beinstrecker", R.drawable.ic_beinstrecker);
+        EQUIPMENT_ICONS.put("Beinbeuger", R.drawable.ic_beinbeuger);
+        EQUIPMENT_ICONS.put("Butterfly", R.drawable.ic_butterfly);
+        EQUIPMENT_ICONS.put("Kabelzug", R.drawable.ic_kabelzug);
+        EQUIPMENT_ICONS.put("Schulterdrücken", R.drawable.ic_schulterpresse);
+        EQUIPMENT_ICONS.put("Bizeps Curl", R.drawable.ic_bizepsmaschine);
+        EQUIPMENT_ICONS.put("Trizeps", R.drawable.ic_trizepsmaschine);
+        EQUIPMENT_ICONS.put("Bauchtrainer", R.drawable.ic_hantel); // Use general hantel icon
+        EQUIPMENT_ICONS.put("Rückenstrecker", R.drawable.ic_latzug); // Use latzug as placeholder
+        EQUIPMENT_ICONS.put("Hantelbank", R.drawable.ic_hantelbank);
+        EQUIPMENT_ICONS.put("Kurzhantel", R.drawable.ic_hantel);
+        EQUIPMENT_ICONS.put("Langhantel", R.drawable.ic_hantel);
+    }
 
     public interface OnEquipmentClickListener {
         void onEquipmentClick(Equipment equipment);
@@ -49,7 +80,11 @@ public class EquipmentAdapter extends ListAdapter<Equipment, EquipmentAdapter.Eq
             return oldItem.getName().equals(newItem.getName()) &&
                    oldItem.getMinWeight() == newItem.getMinWeight() &&
                    oldItem.getMaxWeight() == newItem.getMaxWeight() &&
-                   oldItem.getUpdatedAt() == newItem.getUpdatedAt();
+                   oldItem.getUpdatedAt() == newItem.getUpdatedAt() &&
+                   ((oldItem.getType() == null && newItem.getType() == null) || 
+                    (oldItem.getType() != null && oldItem.getType().equals(newItem.getType()))) &&
+                   ((oldItem.getCategory() == null && newItem.getCategory() == null) || 
+                    (oldItem.getCategory() != null && oldItem.getCategory().equals(newItem.getCategory())));
         }
     };
 
@@ -107,14 +142,33 @@ public class EquipmentAdapter extends ListAdapter<Equipment, EquipmentAdapter.Eq
             String lastUsed = "Added: " + sdf.format(new Date(equipment.getCreatedAt()));
             textLastUsed.setText(lastUsed);
 
-            // Load equipment image if available
-            if (equipment.getImagePath() != null && !equipment.getImagePath().isEmpty()) {
-                // TODO: Load image using Glide
-                // Glide.with(itemView.getContext()).load(equipment.getImagePath()).into(imageEquipment);
-            } else {
-                // Set default equipment icon
-                imageEquipment.setImageResource(R.drawable.ic_equipment_black_24dp);
+            // Set equipment icon based on type
+            setEquipmentIcon(equipment);
+        }
+        
+        private void setEquipmentIcon(Equipment equipment) {
+            Integer iconRes = null;
+            
+            // First try to get icon by equipment type
+            if (equipment.getType() != null && !equipment.getType().isEmpty()) {
+                iconRes = EQUIPMENT_ICONS.get(equipment.getType());
             }
+            
+            // If no specific icon found, use category-based fallback
+            if (iconRes == null) {
+                if ("ausdauer".equals(equipment.getCategory())) {
+                    iconRes = R.drawable.ic_laufband; // Default cardio icon
+                } else if ("kraftsport".equals(equipment.getCategory())) {
+                    iconRes = R.drawable.ic_hantel; // Default strength icon
+                }
+            }
+            
+            // Final fallback to generic equipment icon
+            if (iconRes == null) {
+                iconRes = R.drawable.ic_equipment_black_24dp;
+            }
+            
+            imageEquipment.setImageResource(iconRes);
         }
     }
 }
