@@ -68,6 +68,12 @@ public class EquipmentAdapter extends ListAdapter<Equipment, EquipmentAdapter.Eq
         this.onEquipmentClickListener = onEquipmentClickListener;
         this.onEquipmentMoreClickListener = onEquipmentMoreClickListener;
     }
+    
+    // Method to force refresh of equipment list
+    public void refreshEquipment(java.util.List<Equipment> equipmentList) {
+        submitList(null);
+        submitList(equipmentList);
+    }
 
     private static final DiffUtil.ItemCallback<Equipment> DIFF_CALLBACK = new DiffUtil.ItemCallback<Equipment>() {
         @Override
@@ -77,14 +83,14 @@ public class EquipmentAdapter extends ListAdapter<Equipment, EquipmentAdapter.Eq
 
         @Override
         public boolean areContentsTheSame(@NonNull Equipment oldItem, @NonNull Equipment newItem) {
-            return oldItem.getName().equals(newItem.getName()) &&
+            // Simplified comparison - if updatedAt changed, consider content different
+            return oldItem.getUpdatedAt() == newItem.getUpdatedAt() &&
+                   java.util.Objects.equals(oldItem.getName(), newItem.getName()) &&
+                   java.util.Objects.equals(oldItem.getType(), newItem.getType()) &&
+                   java.util.Objects.equals(oldItem.getCategory(), newItem.getCategory()) &&
                    oldItem.getMinWeight() == newItem.getMinWeight() &&
                    oldItem.getMaxWeight() == newItem.getMaxWeight() &&
-                   oldItem.getUpdatedAt() == newItem.getUpdatedAt() &&
-                   ((oldItem.getType() == null && newItem.getType() == null) || 
-                    (oldItem.getType() != null && oldItem.getType().equals(newItem.getType()))) &&
-                   ((oldItem.getCategory() == null && newItem.getCategory() == null) || 
-                    (oldItem.getCategory() != null && oldItem.getCategory().equals(newItem.getCategory())));
+                   oldItem.getCurrentWeight() == newItem.getCurrentWeight();
         }
     };
 

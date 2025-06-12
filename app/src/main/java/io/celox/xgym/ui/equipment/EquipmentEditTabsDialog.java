@@ -122,6 +122,9 @@ public class EquipmentEditTabsDialog extends DialogFragment {
             }
         }
         
+        // Mark as updated to ensure UI refresh
+        equipment.markAsUpdated();
+        
         if (listener != null) {
             listener.onEquipmentSaved(equipment);
         }

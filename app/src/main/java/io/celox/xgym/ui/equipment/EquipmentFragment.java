@@ -64,10 +64,12 @@ public class EquipmentFragment extends Fragment {
             if (equipment != null && !equipment.isEmpty()) {
                 binding.recyclerEquipment.setVisibility(View.VISIBLE);
                 binding.textNoEquipment.setVisibility(View.GONE);
-                equipmentAdapter.submitList(equipment);
+                // Use refresh method to ensure updates are shown
+                equipmentAdapter.refreshEquipment(equipment);
             } else {
                 binding.recyclerEquipment.setVisibility(View.GONE);
                 binding.textNoEquipment.setVisibility(View.VISIBLE);
+                equipmentAdapter.submitList(equipment);
             }
         });
     }

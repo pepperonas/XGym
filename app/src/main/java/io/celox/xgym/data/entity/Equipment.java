@@ -82,4 +82,9 @@ public class Equipment implements Serializable {
         this.currentWeight = currentWeight;
         this.updatedAt = System.currentTimeMillis();
     }
+    
+    // Method to explicitly update the timestamp when equipment is modified
+    public void markAsUpdated() {
+        this.updatedAt = System.currentTimeMillis();
+    }
 }
