@@ -54,13 +54,20 @@ XGym is an Android application built with Java and the AndroidX libraries. The p
 - **Navigation**: Uses Navigation Component with bottom navigation for main app flow
 - **Dependency Management**: Uses Gradle version catalogs (`gradle/libs.versions.toml`) for centralized dependency versions
 - **View Binding**: Enabled for type-safe view references
+- **Database**: Room persistence library with Repository pattern
+- **Reactive UI**: LiveData for data observation between ViewModels and UI
 
 ### Module Structure
 - Single module app (`:app`)
 - Package structure: `io.celox.xgym`
   - `MainActivity`: Single activity hosting all fragments
-  - `ui/`: Contains feature packages (home, dashboard, notifications)
-    - Each feature has Fragment + ViewModel
+  - `data/`: Database layer
+    - `XGymDatabase`: Room database with 4 entities (Equipment, Exercise, WorkoutSession, Achievement)
+    - `dao/`: Data Access Objects for each entity
+    - `entity/`: Entity classes
+  - `repository/`: Repository pattern for data access
+  - `ui/`: Contains feature packages (equipment, workouts, statistics, profile)
+    - Each feature has Fragment + ViewModel + Adapter where needed
 
 ### Build Configuration
 - **SDK Versions**: compileSdk 35, minSdk 24, targetSdk 35

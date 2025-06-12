@@ -1,0 +1,34 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Hinterrad -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M7,16m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"/>
+    <!-- Vorderrad (kleiner) -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M17,16m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0"/>
+    <!-- Speichen -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M7,13v6M5,16h4M17,14v4M15.5,16h3"/>
+    <!-- Rahmen -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M7,16 L12,8 L17,16"/>
+    <!-- Sattel -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M9,6h6c0.6,0 1,0.4 1,1v1c0,0.6 -0.4,1 -1,1H9c-0.6,0 -1,-0.4 -1,-1V7C8,6.4 8.4,6 9,6z"/>
+    <!-- Pedale -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M11,13h2v1h-2V13z"/>
+    <!-- Lenker -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M15,10h4c0.3,0 0.5,0.2 0.5,0.5s-0.2,0.5 -0.5,0.5h-4V10z"/>
+</vector>

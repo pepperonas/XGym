@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Hauptsäule -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M11,4h2v16h-2V4z"/>
+    <!-- Obere Latzug-Stange -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M3,7h18c0.6,0 1,0.4 1,1s-0.4,1 -1,1H3c-0.6,0 -1,-0.4 -1,-1S2.4,7 3,7z"/>
+    <!-- Griffe -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M7,8v4c0,0.6 0.4,1 1,1s1,-0.4 1,-1V8M15,8v4c0,0.6 0.4,1 1,1s1,-0.4 1,-1V8"/>
+    <!-- Gewichtsblock -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M9,15h6c0.6,0 1,0.4 1,1v3c0,0.6 -0.4,1 -1,1H9c-0.6,0 -1,-0.4 -1,-1v-3C8,15.4 8.4,15 9,15z"/>
+    <!-- Gewichtsplatten Markierungen -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,16h4v0.3h-4V16z M10,17h4v0.3h-4V17z M10,18h4v0.3h-4V18z"/>
+</vector>

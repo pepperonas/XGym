@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.widget.TextView;
 
 import io.celox.xgym.R;
@@ -65,11 +68,46 @@ public class EquipmentFragment extends Fragment {
     }
 
     private void onEquipmentClick(io.celox.xgym.data.entity.Equipment equipment) {
-        // TODO: Navigate to equipment details or edit screen
+        showEditEquipmentDialog(equipment);
     }
 
     private void onEquipmentMoreClick(io.celox.xgym.data.entity.Equipment equipment, View view) {
-        // TODO: Show popup menu with edit/delete options
+        PopupMenu popup = new PopupMenu(getContext(), view);
+        popup.getMenuInflater().inflate(R.menu.equipment_item_menu, popup.getMenu());
+        
+        popup.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_edit) {
+                showEditEquipmentDialog(equipment);
+                return true;
+            } else if (item.getItemId() == R.id.action_delete) {
+                showDeleteConfirmationDialog(equipment);
+                return true;
+            }
+            return false;
+        });
+        
+        popup.show();
+    }
+
+    private void showEditEquipmentDialog(io.celox.xgym.data.entity.Equipment equipment) {
+        EquipmentEditDialog dialog = EquipmentEditDialog.newInstance(equipment);
+        dialog.setOnEquipmentSavedListener(updatedEquipment -> {
+            equipmentViewModel.updateEquipment(updatedEquipment);
+            Toast.makeText(getContext(), "Equipment updated", Toast.LENGTH_SHORT).show();
+        });
+        dialog.show(getParentFragmentManager(), "edit_equipment");
+    }
+
+    private void showDeleteConfirmationDialog(io.celox.xgym.data.entity.Equipment equipment) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Delete Equipment")
+                .setMessage("Are you sure you want to delete " + equipment.getName() + "?")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    equipmentViewModel.deleteEquipment(equipment);
+                    Toast.makeText(getContext(), "Equipment deleted", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     @Override

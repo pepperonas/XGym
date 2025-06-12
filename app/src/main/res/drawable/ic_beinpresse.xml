@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Sitzbank -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M3,12h8c0.6,0 1,0.4 1,1v4c0,0.6 -0.4,1 -1,1H3c-0.6,0 -1,-0.4 -1,-1v-4C2,12.4 2.4,12 3,12z"/>
+    <!-- Rückenlehne -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M3,12 L6,6h2L5,12"/>
+    <!-- Fußplatte (schräg) -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M14,7h5c0.6,0 1,0.4 1,1v6c0,0.6 -0.4,1 -1,1l-3,-2V9L14,7z"/>
+    <!-- Führungsschienen -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M12,15 L17,10 M12,16 L17,11"/>
+    <!-- Gewichte -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M20,8h2c0.6,0 1,0.4 1,1v6c0,0.6 -0.4,1 -1,1h-2V8z"/>
+    <!-- Gewichtsplatten Markierungen -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20.5,10h1v1h-1V10z M20.5,12h1v1h-1V12z M20.5,14h1v1h-1V14z"/>
+</vector>

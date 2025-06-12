@@ -2,9 +2,10 @@ package io.celox.xgym.data.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.io.Serializable;
 
 @Entity(tableName = "equipment")
-public class Equipment {
+public class Equipment implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     

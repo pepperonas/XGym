@@ -33,7 +33,15 @@ public class EquipmentViewModel extends AndroidViewModel {
         repository.update(equipment);
     }
 
+    public void updateEquipment(Equipment equipment) {
+        repository.update(equipment);
+    }
+
     public void delete(Equipment equipment) {
+        repository.delete(equipment);
+    }
+
+    public void deleteEquipment(Equipment equipment) {
         repository.delete(equipment);
     }
 

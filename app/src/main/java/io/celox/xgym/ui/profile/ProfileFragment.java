@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import io.celox.xgym.databinding.FragmentProfileBinding;
 import io.celox.xgym.ui.statistics.AchievementAdapter;
+import io.celox.xgym.utils.ThemeManager;
 import io.celox.xgym.R;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private ProfileViewModel profileViewModel;
     private AchievementAdapter achievementAdapter;
+    private ThemeManager themeManager;
     private static final int EXPORT_REQUEST_CODE = 1001;
     private static final int IMPORT_REQUEST_CODE = 1002;
 
@@ -33,9 +35,11 @@ public class ProfileFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+        themeManager = ThemeManager.getInstance(requireContext());
 
         setupRecyclerView();
         setupClickListeners();
+        setupThemeToggle();
         observeData();
         updateMemberSince();
 
@@ -52,6 +56,23 @@ public class ProfileFragment extends Fragment {
         binding.buttonExportData.setOnClickListener(v -> exportData());
         binding.buttonImportData.setOnClickListener(v -> importData());
         binding.buttonAbout.setOnClickListener(v -> showAbout());
+    }
+
+    private void setupThemeToggle() {
+        // Set initial state based on current theme
+        int currentTheme = themeManager.getTheme();
+        binding.switchDarkMode.setChecked(currentTheme == ThemeManager.THEME_DARK);
+        
+        // Set listener for theme changes
+        binding.switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                themeManager.setTheme(ThemeManager.THEME_DARK);
+            } else {
+                themeManager.setTheme(ThemeManager.THEME_LIGHT);
+            }
+            // Recreate activity to apply theme change
+            requireActivity().recreate();
+        });
     }
 
     private void observeData() {

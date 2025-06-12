@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text colors for better contrast in dark mode -->
+    <color name="xgym_text_secondary_light">@color/xgym_text_secondary_dark</color>
+</resources>
